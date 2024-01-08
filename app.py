@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+@app.route('/',methods=['GET','POST'])
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -10,9 +11,12 @@ def register():
         email = request.form['email']
         password = request.form['password']
 
-        return render_template('success.html')
+        data = {"name":name, "email":email,"password":password}
+
+        return render_template('success.html',user = data)
     
     return render_template('registration.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
